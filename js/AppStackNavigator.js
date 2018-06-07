@@ -48,14 +48,14 @@ export  const HomeTabNavigator = createBottomTabNavigator({
 
 export const AppStackNavigator = StackNavigator({
         //静态设置 navigationOptions 的三种方式 如 HomePage里面设置 和当前界面设置（Page1） 和全局设置：最下面代码navigationOptions
+        Welcome: {
+            screen: Welcome,
+        },
         TabNavigator: {
             screen: HomeTabNavigator,
             navigationOptions:{
                 // headerMode: 'none',//设置标题 none 为不显示标题
             }
-        },
-        Welcome: {
-            screen: Welcome,
         },
         Page1: {
             screen: Page1,

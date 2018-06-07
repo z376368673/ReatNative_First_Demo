@@ -12,6 +12,7 @@ import {
     View,
     Button
 } from 'react-native';
+import NavigationBar from "../view/NavigationBar";
 
 
 type Props = {};
@@ -32,7 +33,11 @@ export default class Page4 extends Component<Props> {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.text}> This is Page2</Text>
+                <NavigationBar
+                    title='Page4'
+                    navigation={this.props.navigation}
+                />
+                <Text style={styles.text}> This is Page4</Text>
             </View>
         );
     }
@@ -41,8 +46,8 @@ export default class Page4 extends Component<Props> {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+        // justifyContent: 'center',
+        // alignItems: 'center',
         backgroundColor: '#F1f1f1',
     },
     text: {

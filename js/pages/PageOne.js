@@ -7,6 +7,9 @@ import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-v
 import React, {Component} from 'react';
 import {Button, StyleSheet, Text, View} from 'react-native';
 import HttpUtils from  '../http/HttpUtils'
+import RefreshFlatList from "./RefreshFlatList";
+import NavigationBar from "../view/NavigationBar";
+import Welcome from "../Welcome";
 
 type Props = {};
 export default class PageOne extends Component<Props> {
@@ -22,57 +25,45 @@ export default class PageOne extends Component<Props> {
     componentWillUnmount() {
 
     }
+
     render() {
-        const {navigation} = this.props;
         return (
             <View style={styles.container}>
+                <NavigationBar
+                    title='最热'
+                    isShowBackView={false}
+                    //navigation={this.props.navigation}
+                    navigation={this.props.navigation}
+                    onLeftPress={()=>{
+                        this.props.navigation.navigate('Page2')
+                    } }
+                />
                 <ScrollableTabView
-                    renderTabBar={() => <ScrollableTabBar/>}
+                      //背景色
+                      tabBarBackgroundColor='#d15'
+                      //未选中的tabBar字体颜色
+                      tabBarInactiveTextColor='#cccccc'
+                      //选中的tabBar字体颜色
+                      tabBarActiveTextColor='#fff'
+                      //设置下划线样式
+                      tabBarUnderlineStyle={{
+                          backgroundColor:'#fafafa',
+                          height:2,
+                      }}
+                      renderTabBar={() => <ScrollableTabBar/>}
                 >
-                    <TabOne tabLabel='Java'>java</TabOne>
-                    <TabOne tabLabel='Android'>android</TabOne>
-                    <TabOne tabLabel='IOS'>ios</TabOne>
-                    <TabOne tabLabel='JavaScript'>js</TabOne>
+                    <RefreshFlatList tabLabel='Java' name='Java'  />
+                    <RefreshFlatList tabLabel='Android' name='Android' />
+                    <RefreshFlatList tabLabel='IOS' name='IOS'  />
+                    <RefreshFlatList tabLabel='JavaScript' name='JavaScript'/>
                 </ScrollableTabView>
             </View>
         );
     }
 }
-
-class TabOne extends Component<Props> {
-    constructor(props) {
-        super(props);
-        this.state = {
-            result: '',
-        }
-    }
-    //界面加载完成
-    componentDidMount() {
-        HttpUtils.getData('https://www.baidu.com')
-            .then(result=>{
-                this.setState({
-                    result:'result',
-                   // result:JSON.stringify(result),
-                })
-            })
-            .catch(error=>{
-                this.setState({
-                    result:error.toString()
-                })
-            })
-    }
-    render() {
-        return <View>
-            <Text style={styles.text}>{this.state.result}</Text>
-        </View>
-    }
-}
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
         backgroundColor: '#F1f1f1',
     },
     text: {

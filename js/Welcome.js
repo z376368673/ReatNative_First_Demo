@@ -42,8 +42,11 @@ export  default class Welcome extends Component<Props> {
         const {navigation} = this.props;
         return (
             <View style={styles.container}>
-
-                <Text  style={styles.text} > Weclome React-Native</Text>
+                <NavigationBar
+                    title='欢迎页'
+                    isShowBackView={false}
+                />
+                <Text style={styles.text}> Welcome React-Native</Text>
                 <Button
                     style={styles.button}
                     title="Go TabNavigator"

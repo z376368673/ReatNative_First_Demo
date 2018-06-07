@@ -12,7 +12,7 @@ import {
     View,
     Button
 } from 'react-native';
-
+import NavigationBar from "../view/NavigationBar";
 type Props = {};
 export default class PageThree extends Component<Props> {
     constructor(props){
@@ -22,7 +22,9 @@ export default class PageThree extends Component<Props> {
         const {navigation} = this.props;
         return (
             <View style={styles.container}>
-                <Text> This is Page1</Text>
+                <NavigationBar
+                    isShowBackView={false}
+                    title='收藏'/>
                 <Button
                     title="Go Page3"
                     onPress={()=>{
@@ -42,8 +44,8 @@ export default class PageThree extends Component<Props> {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+        // justifyContent: 'center',
+        // alignItems: 'center',
         backgroundColor: '#F1f1f1',
     },
     text:{

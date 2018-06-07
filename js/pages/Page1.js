@@ -13,6 +13,7 @@ import {
     Button
 } from 'react-native';
 import ScrollableTabView,{ScrollableTabBar} from 'react-native-scrollable-tab-view'
+import NavigationBar from "../view/NavigationBar";
 
 type Props = {};
 export default class Page1 extends Component<Props> {
@@ -22,12 +23,11 @@ export default class Page1 extends Component<Props> {
     render() {
         return (
             <View style={styles.container}>
-                <ScrollableTabView>
-                    <Text tabLabel='Java'>java</Text>
-                    <Text tabLabel='Android'>android</Text>
-                    <Text tabLabel='IOS'>ios</Text>
-                    <Text tabLabel='JavaScript'>js</Text>
-                </ScrollableTabView>
+               <NavigationBar
+                   title={this.props.title}
+                   isShowBackView={true}
+                   navigation={this.props.navigation}
+               />
             </View>
         );
     }
