@@ -58,6 +58,7 @@ export const AppStackNavigator = StackNavigator({
             }
         },
         Page1: {
+            //标签界面
             screen: Page1,
         },
         Page2: {

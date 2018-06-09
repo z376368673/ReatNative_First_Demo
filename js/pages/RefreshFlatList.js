@@ -13,6 +13,7 @@ import {
     ActivityIndicator,
     TouchableOpacity,
 } from 'react-native';
+import Toast, {DURATION} from 'react-native-easy-toast'
 
 const CITYS = [];
 export default class RefreshFlatList extends Component<Props> {
@@ -34,6 +35,7 @@ export default class RefreshFlatList extends Component<Props> {
 
     render() {
         return <View style={styles.container}>
+            <Toast ref={toast=>this.toast=toast}/>
             <FlatList
                 //设置数据
                 data={this.state.dataArray}
@@ -62,6 +64,7 @@ export default class RefreshFlatList extends Component<Props> {
                 //触发加载更多的后执行的方法
                 onEndReached={() => this._loadData()}
             />
+
         </View>
     }
 
@@ -69,7 +72,8 @@ export default class RefreshFlatList extends Component<Props> {
     _renderItem(dataSource) {
         return <View style={styles.itemView}>
             <TouchableOpacity onPress={()=>{
-
+                // alert('点击')
+                // this.toast.show('点击',DURATION.LENGTH_SHORT);
             }}>
                 <Text style={styles.text}>{dataSource.item}</Text>
             </TouchableOpacity>

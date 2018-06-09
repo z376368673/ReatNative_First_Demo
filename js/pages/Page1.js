@@ -24,9 +24,15 @@ export default class Page1 extends Component<Props> {
         return (
             <View style={styles.container}>
                <NavigationBar
-                   title={this.props.title}
-                   isShowBackView={true}
+                   title='自定义标签'
+                   //isShowBackView={true}
                    navigation={this.props.navigation}
+                   // leftView={this.getLeftStyle_BackText('asd',()=>{
+                   //     this.props.navigation.goBack(null);
+                   // })}
+                   leftView={NavigationBar.getLeftStyle_BackText('返回',()=>{
+                       alert('需要保存标签')
+                   })}
                />
             </View>
         );
@@ -36,8 +42,8 @@ export default class Page1 extends Component<Props> {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+        // justifyContent: 'center',
+        // alignItems: 'center',
         backgroundColor: '#F1f1f1',
     },
     text:{
