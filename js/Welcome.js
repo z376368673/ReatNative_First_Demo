@@ -26,7 +26,6 @@ export  default class Welcome extends Component<Props> {
         this.timer&&clearTimeout(this.timer);
     }
     componentDidMount() {
-        //alert("哈哈");
        this.timer =  setTimeout(()=>{
           // alert("哈哈");
            const {navigation} = this.props;
