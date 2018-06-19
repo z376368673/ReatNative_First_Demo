@@ -14,7 +14,7 @@ import {
     StatusBar,
     TouchableOpacity,
 } from 'react-native';
-import Ionicons, from 'react-native-vector-icons/Ionicons';
+import Ionicons  from 'react-native-vector-icons/Ionicons';
 
 //定义Bar的高度
 const NAV_HEIGHT_ANDROID = 50;
@@ -29,27 +29,12 @@ const StatusBarShape = {
     translucent: PropTypes.bool,
 };
 
-
-{/*  自定义导航栏  使用范例
-
-    <NavigationBar
-    title='欢迎页'
-    isShowBackView={true}
-    //rightText={'分享'}
-    rightView={
-        <Text>分享</Text>
-    }
-
-/>*/
-}
-
 const mainColor = "#d15";
 const textColor = '#fff'
 export default class NavigationBar extends Component<Props> {
     constructor(props) {
         super(props);
     }
-
     //类型约束
     static propTypes = {
         style: View.propTypes.style,
@@ -62,12 +47,6 @@ export default class NavigationBar extends Component<Props> {
         statusBar: PropTypes.shape(StatusBarShape),
     }
     static defaultProps = {
-        statusBar: {
-            statusBar: 'light-content',
-            hide: false,
-            translucent: false,
-            backgroundColor: mainColor
-        },
         isShowBackView: true,//默认显示返回按钮
         title: '标题',
         hide: false,
@@ -75,7 +54,12 @@ export default class NavigationBar extends Component<Props> {
         style: {
             backgroundColor: mainColor
         },
-
+        statusBar: {
+            statusBar: 'light-content',
+            hide: false,
+            translucent: false,
+            backgroundColor: mainColor
+        },
     }
 
     render() {

@@ -14,33 +14,72 @@ import {
     TouchableOpacity,
 } from 'react-native';
 import Toast, {DURATION} from 'react-native-easy-toast'
+import HttpUtils from "../http/HttpUtils";
 
-const CITYS = [];
+const URL = 'https://api.github.com/search/repositories?q=';
 export default class RefreshFlatList extends Component<Props> {
     constructor(props) {
         super(props);
         this.state = {
-            name: this.props.name,
+            name: this.props.tabLabel,
             isLoading: false,
-            dataArray: this.props.data ? this.props.data : CITYS,
+            dataArray: [],
         }
     }
 
     //界面加载完成
     componentDidMount() {
-        for (let i = 0; i < 30; i++) {
-            CITYS[i] = this.state.name + i;
-        }
+        this._refreshData()
+    }
+
+//刷新数据
+    _refreshData() {
+        this.setState({
+            isLoading: true,
+        });
+        alert("URL=" + URL + this.props.tabLabel)
+        HttpUtils.getData(URL + this.props.tabLabel)
+            .then(result => {
+                //alert("result=" + JSON.stringify(result))
+               // alert("result=" + JSON.stringify(result.items))
+                this.setState({
+                    isLoading: false,
+                    dataArray: result.items,
+                })
+            })
+            .catch(error => {
+                alert("error=" + error.toString())
+                this.setState({
+                    // result: error.toString(),
+                    isLoading: false,
+                    dataArray: []
+                })
+            })
+    }
+
+    //加载更多数据
+    _loadData() {
+        alert("_loadData")
+        // setTimeout(() => {
+        //     let array = [];
+        //     for (let i = this.state.dataArray.length; i < this.state.dataArray.length + 20; i++) {
+        //         array.push(this.state.name + i);
+        //     }
+        //     array = this.state.dataArray.concat(array);
+        //     this.setState({
+        //         dataArray: array,
+        //     });
+        // }, 2000);
     }
 
     render() {
         return <View style={styles.container}>
-            <Toast ref={toast=>this.toast=toast}/>
+            <Toast ref={toast => this.toast = toast}/>
             <FlatList
                 //设置数据
                 data={this.state.dataArray}
                 //添加item样式
-                renderItem={(data) => this._renderItem(data)}
+                renderItem={(items) => this._renderItem(items)}
                 refreshControl={
                     <RefreshControl
                         //Android下只有一个 colors 是转圈的颜色
@@ -69,54 +108,31 @@ export default class RefreshFlatList extends Component<Props> {
     }
 
     //item 样式
-    _renderItem(dataSource) {
+    _renderItem(items) {
         return <View style={styles.itemView}>
-            <TouchableOpacity onPress={()=>{
+            <TouchableOpacity onPress={() => {
                 // alert('点击')
                 // this.toast.show('点击',DURATION.LENGTH_SHORT);
             }}>
-                <Text style={styles.text}>{dataSource.item}</Text>
+                <View style={styles.item1}>
+                    <Text style={styles.textName}>{items.item?items.item.name:"name"}</Text>
+                    <Text style={styles.textDes}>{items.item?items.item.description:"description"}</Text>
+                </View>
             </TouchableOpacity>
         </View>
     }
 
     //定义加载更多样式
     getIndicator() {
-        return <View style={styles.indicatorContainer}>
-            <ActivityIndicator
-                size={'large'}
-                animating={true}
-            />
-            <Text style={{color: '#d15', fontSize: 15, margin: 10}}>加载更多</Text>
-        </View>;
-    }
-
-    //刷新数据
-    _refreshData() {
-        this.setState({
-            isLoading: true,
-        });
-        setTimeout(() => {
-            this.setState({
-                isLoading: false,
-                dataArray: CITYS,
-            });
-        }, 2000);
-    }
-
-    //加载更多数据
-    _loadData() {
-        setTimeout(() => {
-            let array = [];
-            for (let i = this.state.dataArray.length; i < this.state.dataArray.length + 20; i++) {
-                array.push(this.state.name + i);
-            }
-            array = this.state.dataArray.concat(array);
-            this.setState({
-                dataArray: array,
-            });
-        }, 2000);
-
+        if (!this.state.dataArray)
+            return <View style={styles.indicatorContainer}>
+                <ActivityIndicator
+                    size={'large'}
+                    animating={true}
+                />
+                <Text style={{color: '#d15', fontSize: 15, margin: 10}}>加载更多</Text>
+            </View>;
+        return null;
     }
 
 }
@@ -129,22 +145,35 @@ const styles = StyleSheet.create({
         backgroundColor: '#f1f1f1',
     },
     itemView: {
-        justifyContent: 'center',
-        alignItems: 'center',
+        //justifyContent: 'center',
+       // alignItems: 'center',
         borderWidth: 0.5,
         borderColor: '#CCC',
-        backgroundColor: 'gray',
+        backgroundColor: '#f5f5f5',
         marginLeft: 10,
         marginRight: 10,
         marginBottom: 5,
     },
-    text: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        color: "#d15",
-        fontSize: 20,
-        padding: 10
+    item1: {
+        flexDirection: 'column',
+        // justifyContent: 'center',
+        // alignItems: 'center',
+        padding:10,
     },
+    textName: {
+        //justifyContent: 'center',
+        //alignItems: 'center',
+        color: "#333333",
+        fontSize: 20,
+    },
+    textDes: {
+       // justifyContent: 'center',
+        //alignItems: 'center',
+        color: "#666666",
+        marginTop:5,
+        fontSize: 15,
+    },
+
     indicatorContainer: {
         flexDirection: 'row',
         justifyContent: 'center',

@@ -6,7 +6,7 @@
 import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-view'
 import React, {Component} from 'react';
 import {Button, StyleSheet, TouchableOpacity, View} from 'react-native';
-import HttpUtils from '../http/HttpUtils'
+//import HttpUtils from '../http/HttpUtils'
 import RefreshFlatList from "./RefreshFlatList";
 import NavigationBar from "../view/NavigationBar";
 import Welcome from "../Welcome";
@@ -50,10 +50,10 @@ export default class PageOne extends Component<Props> {
                     }}
                     renderTabBar={() => <ScrollableTabBar/>}
                 >
-                    <RefreshFlatList tabLabel='Java' name='Java'/>
-                    <RefreshFlatList tabLabel='Android' name='Android'/>
-                    <RefreshFlatList tabLabel='IOS' name='IOS'/>
-                    <RefreshFlatList tabLabel='JavaScript' name='JavaScript'/>
+                    <RefreshFlatList tabLabel='Java'/>
+                    <RefreshFlatList tabLabel='Android' />
+                    <RefreshFlatList tabLabel='IOS'/>
+                    <RefreshFlatList tabLabel='JavaScript'/>
                 </ScrollableTabView>
             </View>
         );
